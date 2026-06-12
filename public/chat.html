@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Modern Chat App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="chat-page">
+    <div class="chat-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <div class="logo-small">
+            <i class="fas fa-comments"></i>
+            <span>Chat</span>
+          </div>
+          <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="room-info">
+          <div class="room-badge">
+            <i class="fas fa-hashtag"></i>
+            <span id="roomName">loading...</span>
+          </div>
+          <div class="connection-status" id="connectionStatus">
+            <span class="status-dot"></span>
+            <span class="status-text">Connecting...</span>
+          </div>
+        </div>
+
+        <div class="users-section">
+          <div class="section-label">
+            <i class="fas fa-circle" style="color: #22c55e; font-size: 8px;"></i>
+            Online now
+            <span class="user-count" id="userCount">0</span>
+          </div>
+          <ul class="users-list" id="usersList"></ul>
+        </div>
+
+        <div class="sidebar-footer">
+          <button class="btn-leave" id="leaveBtn">
+            <i class="fas fa-sign-out-alt"></i>
+            Leave room
+          </button>
+        </div>
+      </aside>
+
+      <!-- Sidebar overlay (mobile) -->
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+      <!-- Main chat area -->
+      <main class="chat-main">
+        <!-- Top bar -->
+        <header class="chat-header">
+          <div class="header-left">
+            <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="header-room">
+              <span class="header-hash">#</span>
+              <span id="headerRoomName">loading...</span>
+            </div>
+          </div>
+          <div class="header-right">
+            <div class="header-status" id="headerStatus">
+              <span class="status-dot"></span>
+              <span id="headerStatusText">Connecting</span>
+            </div>
+            <button class="icon-btn" id="locationBtn" title="Share location (Ctrl+L)">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+          </div>
+        </header>
+
+        <!-- Messages area -->
+        <div class="messages-area" id="messagesArea">
+          <div class="messages-inner" id="messages">
+            <!-- Messages are rendered here -->
+          </div>
+          <!-- Typing indicator -->
+          <div class="typing-area" id="typingArea" style="display:none;">
+            <div class="typing-bubble">
+              <span class="typing-name" id="typingName"></span>
+              <span class="typing-dots">
+                <span></span><span></span><span></span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Message input -->
+        <footer class="chat-footer">
+          <div class="input-wrapper">
+            <textarea
+              id="messageInput"
+              class="message-input"
+              placeholder="Type a message… (Enter to send)"
+              rows="1"
+              maxlength="500"
+              autocomplete="off"
+              spellcheck="true"
+            ></textarea>
+            <div class="input-actions">
+              <span class="char-count" id="charCount">500</span>
+              <button class="send-btn" id="sendBtn" title="Send (Enter)">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+          <p class="input-hint-text">
+            <kbd>Enter</kbd> to send · <kbd>Shift+Enter</kbd> for new line · <kbd>Ctrl+L</kbd> to share location
+          </p>
+        </footer>
+      </main>
+    </div>
+
+    <!-- Toast notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/chat.js"></script>
+  </body>
+</html>

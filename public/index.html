@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Chat App — Join</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="join-page">
+    <!-- Animated background blobs -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+
+    <div class="join-container">
+      <div class="join-card">
+        <!-- Logo / Header -->
+        <div class="join-header">
+          <div class="logo-mark">
+            <i class="fas fa-comments"></i>
+          </div>
+          <h1 class="join-title">Modern Chat</h1>
+          <p class="join-subtitle">Real-time conversations, beautifully simple</p>
+        </div>
+
+        <!-- Form -->
+        <form class="join-form" id="joinForm">
+          <div class="form-group">
+            <label for="username" class="form-label">
+              <i class="fas fa-user"></i>
+              Your name
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-input"
+              placeholder="e.g. Alex, Jordan..."
+              maxlength="24"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+            <span class="input-hint" id="usernameHint"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="room" class="form-label">
+              <i class="fas fa-hashtag"></i>
+              Room name
+            </label>
+            <input
+              type="text"
+              id="room"
+              name="room"
+              class="form-input"
+              placeholder="e.g. general, dev-team..."
+              maxlength="32"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+            <span class="input-hint" id="roomHint"></span>
+          </div>
+
+          <!-- Quick room suggestions -->
+          <div class="room-suggestions">
+            <span class="suggestions-label">Popular rooms:</span>
+            <button type="button" class="room-chip" data-room="general">general</button>
+            <button type="button" class="room-chip" data-room="dev-team">dev-team</button>
+            <button type="button" class="room-chip" data-room="random">random</button>
+            <button type="button" class="room-chip" data-room="design">design</button>
+          </div>
+
+          <button type="submit" class="btn-join" id="joinBtn">
+            <span class="btn-text">Join Chat</span>
+            <i class="fas fa-arrow-right btn-icon"></i>
+          </button>
+        </form>
+
+        <!-- Footer note -->
+        <p class="join-footer">
+          No account needed · Rooms are created automatically
+        </p>
+      </div>
+
+      <!-- Feature pills -->
+      <div class="feature-pills">
+        <div class="pill"><i class="fas fa-bolt"></i> Real-time</div>
+        <div class="pill"><i class="fas fa-lock"></i> Ephemeral</div>
+        <div class="pill"><i class="fas fa-users"></i> Multi-room</div>
+        <div class="pill"><i class="fas fa-mobile-alt"></i> Responsive</div>
+      </div>
+    </div>
+
+    <script>
+      const joinForm = document.getElementById("joinForm");
+      const usernameInput = document.getElementById("username");
+      const roomInput = document.getElementById("room");
+      const joinBtn = document.getElementById("joinBtn");
+
+      // Room chips
+      document.querySelectorAll(".room-chip").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          roomInput.value = chip.dataset.room;
+          document.querySelectorAll(".room-chip").forEach((c) => c.classList.remove("active"));
+          chip.classList.add("active");
+          roomInput.focus();
+        });
+      });
+
+      // Input validation feedback
+      usernameInput.addEventListener("input", () => {
+        const hint = document.getElementById("usernameHint");
+        const val = usernameInput.value.trim();
+        if (val.length > 0 && val.length < 2) {
+          hint.textContent = "At least 2 characters";
+          hint.className = "input-hint warn";
+        } else if (val.length >= 2) {
+          hint.textContent = "Looks good!";
+          hint.className = "input-hint ok";
+        } else {
+          hint.textContent = "";
+          hint.className = "input-hint";
+        }
+      });
+
+      // Form submit
+      joinForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const username = usernameInput.value.trim();
+        const room = roomInput.value.trim();
+
+        if (!username || username.length < 2) {
+          usernameInput.focus();
+          usernameInput.classList.add("shake");
+          setTimeout(() => usernameInput.classList.remove("shake"), 500);
+          return;
+        }
+
+        if (!room) {
+          roomInput.focus();
+          roomInput.classList.add("shake");
+          setTimeout(() => roomInput.classList.remove("shake"), 500);
+          return;
+        }
+
+        // Navigate to chat
+        joinBtn.classList.add("loading");
+        joinBtn.disabled = true;
+        const params = new URLSearchParams({ username, room });
+        setTimeout(() => {
+          window.location.href = `/chat.html?${params}`;
+        }, 300);
+      });
+    </script>
+  </body>
+</html>
