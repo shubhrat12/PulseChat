@@ -1,31 +1,35 @@
-# NexSync
+# PulseChat
 
-> Real-time messaging, synchronized instantly across every device.
+**The heartbeat of real-time conversation.**
 
-NexSync is a full-stack chat application built with **Node.js**, **Express**, and **Socket.IO**. It delivers low-latency, bidirectional communication through WebSockets — no polling, no delays. Users join named rooms, exchange messages in real time, and see live presence updates the moment someone enters or leaves.
+PulseChat is an open-source, full-stack real-time messaging application built with **Node.js**, **Express.js**, and **Socket.IO**.
+
+It allows users to join chat rooms instantly, send messages in real time, view live user presence, share locations, and see typing indicators without creating an account or refreshing the page.
 
 ---
 
-## Preview
+## Overview
 
-```
-https://nexsync-7jcc.onrender.com/
-```
+PulseChat lets users start conversations instantly from any device.
 
-> Two devices. One URL. No setup required for end users.
+A user enters a username, joins a room, and can immediately chat with anyone else in the same room. Rooms are created automatically, and all communication happens in real time using WebSockets through Socket.IO.
+
+The project is designed to be simple, readable, and easy to extend. It is a good foundation for learning real-time communication, WebSocket architecture, and full-stack JavaScript development.
 
 ---
 
 ## Features
 
-- **Real-time messaging** — WebSocket-powered delivery with zero perceptible lag
-- **Multi-room support** — Isolated chat rooms created on demand
-- **Live presence** — See who joins and leaves in real time
-- **Typing indicators** — Animated feedback when another user is composing
-- **Location sharing** — Share your coordinates as a Google Maps link
-- **Auto-reconnect** — Graceful recovery on dropped connections
-- **Responsive UI** — Works across desktop, tablet, and mobile
-- **No account required** — Just a username and a room name
+| Feature | Description |
+|---|---|
+| Real-time messaging | Messages are delivered instantly using Socket.IO |
+| Chat rooms | Users can create or join named rooms |
+| Live presence | Active users are shown in each room |
+| Typing indicators | Users can see when someone else is typing |
+| Location sharing | Users can share their location as a Google Maps link |
+| Auto-reconnect | Socket.IO handles reconnection after network drops |
+| Responsive design | Works on desktop, tablet, and mobile |
+| No authentication required | Users only need a username and room name |
 
 ---
 
@@ -34,35 +38,51 @@ https://nexsync-7jcc.onrender.com/
 | Layer | Technology |
 |---|---|
 | Runtime | Node.js |
-| Framework | Express.js |
-| Real-time | Socket.IO (WebSocket) |
-| Frontend | Vanilla JS, HTML5, CSS3 |
-| Fonts | Inter (Google Fonts) |
+| Server framework | Express.js |
+| Real-time communication | Socket.IO |
+| Frontend | HTML5, CSS3, Vanilla JavaScript |
+| Styling | Custom CSS |
 | Icons | Font Awesome |
-| Deployment | Render.com |
+| Fonts | Inter |
+| Hosting | Render, Railway, or any Node.js hosting platform |
 
 ---
 
 ## Project Structure
 
-```
-nexsync/
+```bash
+pulsechat/
 ├── src/
-│   ├── index.js              # Express server + Socket.IO event handlers
+│   ├── index.js
 │   └── utils/
-│       ├── messages.js       # Message object factory
-│       └── user.js           # In-memory user registry
+│       ├── messages.js
+│       └── user.js
 ├── public/
-│   ├── index.html            # Join / landing page
-│   ├── chat.html             # Chat interface
+│   ├── index.html
+│   ├── chat.html
 │   ├── css/
-│   │   └── styles.css        # Full design system
+│   │   └── styles.css
 │   └── js/
-│       └── chat.js           # Frontend Socket.IO logic
-├── .env                      # Environment variables
+│       └── chat.js
+├── .env
+├── .gitignore
 ├── package.json
 └── README.md
 ```
+
+---
+
+## Folder Description
+
+| Path | Description |
+|---|---|
+| `src/index.js` | Main server file that configures Express and Socket.IO |
+| `src/utils/messages.js` | Creates message and location message objects |
+| `src/utils/user.js` | Manages users and rooms in memory |
+| `public/index.html` | Join page where users enter username and room |
+| `public/chat.html` | Main chat interface |
+| `public/css/styles.css` | Application styling and responsive layout |
+| `public/js/chat.js` | Client-side Socket.IO logic |
 
 ---
 
@@ -70,103 +90,202 @@ nexsync/
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) v14 or higher
-- npm (included with Node.js)
-
-### Installation
+Make sure Node.js and npm are installed.
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/your-username/nexsync.git
-cd nexsync
-
-# 2. Install dependencies
-npm install
-
-# 3. Start the development server
-npm run dev
-
-# 4. Open in your browser
-# http://localhost:3000
+node -v
+npm -v
 ```
 
-### Environment Variables
+Recommended:
 
-Create a `.env` file in the root directory:
+```bash
+Node.js 18+
+npm 9+
+```
+
+---
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/your-username/pulsechat.git
+cd pulsechat
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+---
+
+## Running Locally
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Or start the production server:
+
+```bash
+npm start
+```
+
+Open the app in your browser:
+
+```bash
+http://localhost:3000
+```
+
+---
+
+## Environment Variables
+
+Create a `.env` file in the project root:
 
 ```env
 PORT=3000
 HOST=0.0.0.0
 ```
 
+If no `.env` file is provided, the application uses port `3000` by default.
+
 ---
 
 ## Usage
 
-1. Open the app URL in your browser
-2. Enter a username and a room name
-3. Click **Join Chat** — the room is created automatically if it doesn't exist
-4. Share the same URL + room name with anyone you want to chat with
+1. Open the application in your browser.
+2. Enter a username.
+3. Enter a room name.
+4. Click **Join Chat**.
+5. Share the same room name with another user.
+6. Start chatting in real time.
 
-### Keyboard Shortcuts
+Rooms are created automatically when users join them.
+
+---
+
+## Keyboard Shortcuts
 
 | Shortcut | Action |
 |---|---|
-| `Enter` | Send message |
-| `Shift + Enter` | New line |
-| `Ctrl / Cmd + L` | Share your location |
-| `Escape` | Close sidebar (mobile) |
+| `Enter` | Send a message |
+| `Shift + Enter` | Add a new line |
+| `Ctrl + L` | Share location on Windows/Linux |
+| `Cmd + L` | Share location on macOS |
+| `Escape` | Close sidebar on mobile |
+
+---
+
+## Socket.IO Events
+
+PulseChat uses Socket.IO events to communicate between the client and server.
+
+---
+
+## Client to Server Events
+
+| Event | Payload | Description |
+|---|---|---|
+| `join` | `{ username, room }` | Adds a user to a chat room |
+| `sendMessage` | `message: string` | Sends a text message to the room |
+| `sendLocation` | `{ latitude, longitude }` | Sends a location message to the room |
+| `typing` | None | Notifies others that the user is typing |
+| `stopTyping` | None | Notifies others that the user stopped typing |
+
+---
+
+## Server to Client Events
+
+| Event | Payload | Description |
+|---|---|---|
+| `message` | `{ username, text, createdAt }` | Sends a text message to clients |
+| `locationMessage` | `{ username, url, createdAt }` | Sends a location link to clients |
+| `roomData` | `{ room, users }` | Sends updated room and user data |
+| `userTyping` | `{ username }` | Shows typing status for a user |
+| `userStopTyping` | `{ username }` | Removes typing status for a user |
 
 ---
 
 ## Deployment
 
-NexSync is configured for one-click deployment on [Render.com](https://render.com).
+PulseChat can be deployed on any platform that supports Node.js applications.
 
-### Deploy to Render
+Common options include:
 
-1. Push your code to a GitHub repository
-2. Go to [render.com](https://render.com) → **New → Web Service**
-3. Connect your repository and set the following:
+- Render
+- Railway
+- Fly.io
+- Heroku
+- DigitalOcean
+- AWS
+- Google Cloud
+- Azure
+
+---
+
+## Deploying on Render
+
+1. Push the project to GitHub.
+2. Log in to Render.
+3. Create a new Web Service.
+4. Connect your GitHub repository.
+5. Use the following settings:
 
 | Setting | Value |
 |---|---|
 | Runtime | Node |
 | Build Command | `npm install` |
 | Start Command | `npm start` |
-| Instance Type | Free |
+| Instance Type | Free or paid plan |
 
-4. Click **Deploy** — Render will provide a public URL
+6. Deploy the service.
 
-The `PORT` environment variable is automatically injected by Render and handled in `src/index.js`.
-
----
-
-## Socket Events
-
-| Event | Direction | Description |
-|---|---|---|
-| `join` | Client → Server | Join a room with username |
-| `sendMessage` | Client → Server | Send a text message |
-| `sendLocation` | Client → Server | Send geolocation coordinates |
-| `typing` | Client → Server | Notify others of typing start |
-| `stopTyping` | Client → Server | Notify others of typing stop |
-| `message` | Server → Client | Receive a chat message |
-| `locationMessage` | Server → Client | Receive a location message |
-| `roomData` | Server → Client | Updated room + user list |
-| `userTyping` | Server → Client | Another user started typing |
-| `userStopTyping` | Server → Client | Another user stopped typing |
+Render will generate a public URL after deployment.
 
 ---
 
 ## Roadmap
 
-- [ ] Persistent message history (MongoDB / Redis)
-- [ ] Private direct messaging
-- [ ] File and image sharing
-- [ ] User authentication (JWT)
-- [ ] Message reactions
-- [ ] Push notifications
+Planned improvements:
+
+- Message persistence with MongoDB or Redis
+- Private direct messaging
+- Image and file sharing
+- User authentication with JWT
+- Message reactions
+- Emoji support
+- Read receipts
+- Push notifications
+- Admin room controls
+- User avatars
+- Message search
+- Online/offline status
+- Rate limiting and spam protection
+
+---
+
+## Future Improvements
+
+Possible production-level upgrades:
+
+- Store messages in MongoDB or PostgreSQL
+- Store active sessions in Redis
+- Add JWT-based authentication
+- Add input validation and sanitization
+- Add rate limiting for socket events
+- Add unit and integration tests
+- Add Docker support
+- Add CI/CD using GitHub Actions
+- Add structured logging
+- Add error monitoring
+- Add horizontal scaling with the Socket.IO Redis adapter
 
 ---
 
@@ -174,32 +293,66 @@ The `PORT` environment variable is automatically injected by Render and handled 
 
 Contributions are welcome.
 
+To contribute:
+
 ```bash
-# Fork the repository, then:
+# Fork the repository
+
+# Create a new branch
 git checkout -b feature/your-feature-name
-git commit -m "Add your feature"
+
+# Make your changes
+
+# Commit your changes
+git commit -m "feat: add your feature description"
+
+# Push your branch
 git push origin feature/your-feature-name
-# Open a Pull Request
 ```
 
-Please keep commits focused and PRs scoped to a single feature or fix.
+Then open a pull request.
+
+Please keep pull requests focused on a single feature, fix, or improvement.
 
 ---
 
 ## License
 
-MIT © 2025 — see [LICENSE](LICENSE) for details.
+This project is licensed under the MIT License.
+
+See the `LICENSE` file for more details.
 
 ---
 
 ## Acknowledgements
 
-- [Socket.IO](https://socket.io/) — WebSocket abstraction layer
-- [Express.js](https://expressjs.com/) — Minimal Node.js web framework
-- [Inter](https://rsms.me/inter/) — UI typeface
-- [Font Awesome](https://fontawesome.com/) — Icon library
-- [Render](https://render.com/) — Hosting platform
+PulseChat uses the following technologies:
+
+- Node.js
+- Express.js
+- Socket.IO
+- Font Awesome
+- Inter Typeface
 
 ---
 
-<p align="center">Built with Node.js and Socket.IO</p>
+## Author
+
+Built by **Eragon T**.
+
+---
+
+## Summary
+
+PulseChat is a simple, fast, and responsive real-time chat application built with Node.js and Socket.IO.
+
+It demonstrates the core ideas behind modern messaging systems:
+
+- Real-time communication
+- Room-based chat
+- Live user presence
+- Typing indicators
+- Location sharing
+- Responsive frontend design
+
+The project is lightweight, easy to understand, and ready to be extended into a more advanced chat platform.
