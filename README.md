@@ -18,6 +18,18 @@ The project is designed to be simple, readable, and easy to extend. It is a good
 
 ---
 
+---
+
+## Preview
+
+
+https://nexsync-7jcc.onrender.com/
+
+
+> Get Connected.
+
+---
+
 ## Features
 
 | Feature | Description |
