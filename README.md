@@ -336,12 +336,6 @@ PulseChat uses the following technologies:
 
 ---
 
-## Author
-
-Built by **Eragon T**.
-
----
-
 ## Summary
 
 PulseChat is a simple, fast, and responsive real-time chat application built with Node.js and Socket.IO.
